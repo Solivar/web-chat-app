@@ -1,0 +1,6 @@
+@import 'bulma/css/bulma.min.css';
+
+body,
+#root {
+  min-height: 100vh;
+}
