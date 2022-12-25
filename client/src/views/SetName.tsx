@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 
-import styles from './SetName.module.css';
+import styles from './SetName.module.scss';
 import { MAX_NAME_LEN, MIN_NAME_LEN } from '../constants';
+import { SocketContext } from '../socket-context';
 
 export default function SetName({ updateName }: { updateName: Function }) {
+  const socket = useContext(SocketContext);
   const [name, setName] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setError('');
@@ -23,7 +26,8 @@ export default function SetName({ updateName }: { updateName: Function }) {
       return;
     }
 
-    updateName(name);
+    socket.emit('join:set_name', name);
+    setIsLoading(true);
   }
 
   return (
@@ -54,8 +58,11 @@ export default function SetName({ updateName }: { updateName: Function }) {
           </div>
           <div className="field mt-5 is-flex is-justify-content-flex-end">
             <div className="control">
-              <button className="button is-primary">
-                <span className="is-uppercase has-text-weight-bold">Start chatting</span>
+              <button
+                className={`button is-primary ${isLoading ? 'is-loading' : ''}`}
+                disabled={isLoading}
+              >
+                <span className="is-uppercase has-text-weight-bold ">Start chatting</span>
                 <span className="icon is-small">
                   <FaArrowRight />
                 </span>
