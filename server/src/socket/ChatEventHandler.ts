@@ -1,14 +1,14 @@
-import { Server, Socket } from 'socket.io';
+import { Socket } from 'socket.io';
 
 import { NAME_MAX_LENGTH, NAME_MIN_LENGTH } from '../constants';
 import Store from '../store';
-
+import { ChatSocket, ChatSocketsServer } from '../types/Socket';
 export default class ChatEventHandler {
-  private io: Server;
-  private socket: Socket;
+  private io: ChatSocketsServer;
+  private socket: ChatSocket;
   private store: Store;
 
-  constructor(io: Server, socket: Socket, store: Store) {
+  constructor(io: ChatSocketsServer, socket: ChatSocket, store: Store) {
     this.io = io;
     this.socket = socket;
     this.store = store;
@@ -21,7 +21,7 @@ export default class ChatEventHandler {
   };
 
   private handleSetName = (name: string) => {
-    if (this.socket.data.name) {
+    if (this.socket.data.user?.name) {
       this.socket.emit('error', 'You have already joined the chat.');
 
       return;
@@ -47,7 +47,7 @@ export default class ChatEventHandler {
       name,
     });
 
-    this.socket.emit('join:accept_name', name);
+    this.socket.emit('join:accept_name');
     this.io.emit('user:connected', name);
   };
 }
