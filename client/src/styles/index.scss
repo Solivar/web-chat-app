@@ -1,11 +1,6 @@
 @import './bulma-theme';
-@import 'bulma/bulma.sass';
 
 body,
 #root {
   min-height: 100vh;
-}
-
-.bulma-loader-mixin {
-  @include loader;
 }
