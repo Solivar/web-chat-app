@@ -3,7 +3,7 @@ import type { DefaultEventsMap } from 'socket.io/dist/typed-events';
 import type { Server as httpServer } from 'http';
 
 import ChatEventHandler from './ChatEventHandler';
-import { ClientToServerEvents, ServerToClientEvents } from './../types/Socket';
+import { ClientToServerEvents, ServerToClientEvents } from './../types/Events';
 import { SocketData } from '../types/Socket';
 import { store } from './../app';
 

@@ -4,12 +4,17 @@ import { FaArrowRight } from 'react-icons/fa';
 import styles from './SetName.module.scss';
 import { MAX_NAME_LEN, MIN_NAME_LEN } from '../constants';
 import { SocketContext } from '../socket-context';
+import { useErrorEvents } from '../hooks/events/useErrorEvents';
+import { useNameSetupEvents } from '../hooks/events/useNameSetupEvents';
 
 export default function SetName({ updateName }: { updateName: Function }) {
   const socket = useContext(SocketContext);
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  useNameSetupEvents();
+  useErrorEvents({ setError });
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setError('');
