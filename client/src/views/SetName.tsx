@@ -7,7 +7,7 @@ import { SocketContext } from '../socket-context';
 import { useErrorEvents } from '../hooks/events/useErrorEvents';
 import { useNameSetupEvents } from '../hooks/events/useNameSetupEvents';
 
-export default function SetName({ updateName }: { updateName: Function }) {
+export default function SetName({ updateName }: { updateName: (name: string) => void }) {
   const socket = useContext(SocketContext);
   const [name, setName] = useState('');
   const [error, setError] = useState('');

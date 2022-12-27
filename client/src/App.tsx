@@ -4,7 +4,7 @@ import { socket, SocketContext } from './socket-context';
 import ChatRoom from './views/ChatRoom';
 import SetName from './views/SetName';
 
-const App = () => {
+export default function App() {
   const [name, setName] = useState('');
   const [connected, setConnected] = useState(false);
 
@@ -41,6 +41,4 @@ const App = () => {
       </div>
     </section>
   );
-};
-
-export default App;
+}

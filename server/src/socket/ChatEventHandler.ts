@@ -1,5 +1,3 @@
-import { Socket } from 'socket.io';
-
 import { NAME_MAX_LENGTH, NAME_MIN_LENGTH } from '../constants';
 import Store from '../store';
 import { ChatSocket, ChatSocketsServer } from '../types/Socket';
