@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useConnectionEvents } from './hooks/events/useConnectionEvents';
+import FullHeightLayout from './layouts/FullHeightLayout';
 import { socket, SocketContext } from './socket-context';
 import ChatRoom from './views/ChatRoom';
+import LoadingScreen from './views/LoadingScreen';
 import SetName from './views/SetName';
 
 export default function App() {
@@ -14,27 +16,23 @@ export default function App() {
     setName(name);
   }
 
-  return (
-    <section className="hero is-fullheight">
-      <div className="hero-body is-justify-content-center">
-        {!connected && (
-          <>
-            <div className="block">
-              <div
-                className="loader-big mx-auto mb-5"
-                aria-label="Currently loading"
-              ></div>
-              <p>Connecting to server</p>
-            </div>
-          </>
-        )}
+  function handleLeaveRoom() {
+    setName('');
+  }
 
-        {connected && (
-          <SocketContext.Provider value={socket}>
-            {name ? <ChatRoom /> : <SetName updateName={handleUpdateName} />}
-          </SocketContext.Provider>
-        )}
-      </div>
-    </section>
+  if (!connected) {
+    return <LoadingScreen />;
+  }
+
+  return (
+    <SocketContext.Provider value={socket}>
+      {name ? (
+        <ChatRoom leaveRoom={handleLeaveRoom} />
+      ) : (
+        <FullHeightLayout>
+          <SetName updateName={handleUpdateName} />
+        </FullHeightLayout>
+      )}
+    </SocketContext.Provider>
   );
 }

@@ -23,7 +23,7 @@ export default function ChatRoom({ leaveRoom }: { leaveRoom: () => void }) {
         <div
           className={`${styles.room} container is-fullhd has-background-white has-border is-rounded mx-auto pl-6 is-relative`}
         >
-          <main className="has-overflow-y-scroll py-5 pr-5">
+          <main className="has-overflow-y-scroll py-5 pr-6">
             <MessageList messages={messages} />
           </main>
           <aside className={`${styles.sidebar} has-overflow-y-scroll p-5 pr-0`}>
