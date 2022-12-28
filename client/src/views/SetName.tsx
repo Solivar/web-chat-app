@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 
 import styles from './SetName.module.scss';
@@ -12,9 +12,14 @@ export default function SetName({ updateName }: { updateName: (name: string) => 
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const nameRef = useRef('');
 
-  useNameSetupEvents();
-  useErrorEvents({ setError });
+  useEffect(() => {
+    nameRef.current = name;
+  }, [name]);
+
+  useNameSetupEvents({ nameRef, updateName });
+  useErrorEvents({ setError, setIsLoading });
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setError('');

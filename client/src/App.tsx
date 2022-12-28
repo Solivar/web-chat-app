@@ -14,10 +14,6 @@ export default function App() {
     setName(name);
   }
 
-  if (!socket.connected) {
-    return;
-  }
-
   return (
     <section className="hero is-fullheight">
       <div className="hero-body is-justify-content-center">
