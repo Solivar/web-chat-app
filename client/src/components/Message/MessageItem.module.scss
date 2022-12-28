@@ -1,0 +1,11 @@
+$max-message-width: 500px;
+
+.message {
+  min-width: 0;
+  flex: 1;
+  max-width: $max-message-width;
+
+  &__content {
+    white-space: pre-line;
+  }
+}

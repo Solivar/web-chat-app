@@ -1,0 +1,28 @@
+@use 'sass:map';
+@use 'bulma/sass/utilities/initial-variables.sass' as variables;
+@use 'bulma/sass/helpers/spacing.sass' as spacing;
+@use 'bulma/sass/utilities/mixins.sass' as mixins;
+
+$sidebar-width: 250px;
+
+.room {
+  display: grid;
+  height: 100%;
+  min-height: 300px;
+  overflow: hidden;
+
+  @include mixins.tablet {
+    grid-template-columns: 1fr $sidebar-width;
+  }
+}
+
+.sidebar {
+  display: none;
+  position: absolute;
+  background-color: variables.$white-ter;
+
+  @include mixins.tablet {
+    display: block;
+    position: static;
+  }
+}

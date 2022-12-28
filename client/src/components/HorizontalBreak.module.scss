@@ -1,0 +1,8 @@
+@use 'bulma/sass/utilities/initial-variables.sass' as variables;
+
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: variables.$grey-lighter;
+  margin: variables.$size-6 0;
+}
