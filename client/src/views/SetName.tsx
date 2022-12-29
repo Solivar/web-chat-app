@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 
 import styles from './SetName.module.scss';
-import { MAX_NAME_LEN, MIN_NAME_LEN } from '../constants';
+import { NAME_MAX_LENGTH, NAME_MIN_LENGTH } from '@server/constants';
 import { SocketContext } from '../socket-context';
 import { useErrorEvents } from '../hooks/events/useErrorEvents';
 import { useNameSetupEvents } from '../hooks/events/useNameSetupEvents';
@@ -30,8 +30,8 @@ export default function SetName({ updateName }: { updateName: (name: string) => 
     event.preventDefault();
     setError('');
 
-    if (name.length < MIN_NAME_LEN || MAX_NAME_LEN < name.length) {
-      setError(`Name must be ${MIN_NAME_LEN} - ${MAX_NAME_LEN} characters long.`);
+    if (name.length < NAME_MIN_LENGTH || NAME_MAX_LENGTH < name.length) {
+      setError(`Name must be ${NAME_MIN_LENGTH} - ${NAME_MAX_LENGTH} characters long.`);
 
       return;
     }

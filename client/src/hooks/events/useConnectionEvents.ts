@@ -1,4 +1,4 @@
-import { ServerToClientEvents, ClientToServerEvents } from '@server/src/types/Events';
+import { ServerToClientEvents, ClientToServerEvents } from '@server/types/Events';
 import { Socket } from 'socket.io-client';
 import React, { useEffect } from 'react';
 
