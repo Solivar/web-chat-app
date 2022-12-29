@@ -17,6 +17,7 @@ export default function App() {
   }
 
   function handleLeaveRoom() {
+    socket.emit('user:log_out');
     setName('');
   }
 

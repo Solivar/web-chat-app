@@ -3,12 +3,14 @@ import styles from './ChatRoom.module.scss';
 import UserList from '../components/User/UserList';
 
 // Test data
-import users from '../tests/users.json';
 import messages from '../tests/messages';
+import { useUserEvents } from '../hooks/events/useUserEvents';
 
 export default function ChatRoom({ leaveRoom }: { leaveRoom: () => void }) {
+  const users = useUserEvents();
+
   return (
-    <div className="is-flex is-flex-direction-column is-full-height">
+    <div className="container is-fullhd is-flex is-flex-direction-column is-full-height">
       <div className="is-flex is-justify-content-space-between is-align-content-center pt-3 pl-5 pr-2">
         <h1 className="is-size-5 has-text-weight-bold mb">Web Chat App</h1>
         <button

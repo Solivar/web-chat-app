@@ -15,7 +15,7 @@ export function useNameSetupEvents({
       updateName(nameRef.current);
     });
 
-    return () => {
+    return function () {
       socket.off('join:accept_name');
     };
   }, []);

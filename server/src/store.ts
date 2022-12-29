@@ -13,12 +13,16 @@ export default class Store {
     return false;
   }
 
-  public addUser({ id, name }: { id: string; name: string }) {
-    this.users.push({
+  public addUser({ id, name }: { id: string; name: string }): User {
+    const user = {
       id,
       name,
       hasJoinedRoom: true,
-    });
+    };
+
+    this.users.push(user);
+
+    return user;
   }
 
   public removeUser(id: string) {

@@ -10,15 +10,15 @@ export function useConnectionEvents({
   setConnected: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   useEffect(() => {
-    socket.on('connect', () => {
+    socket.on('connect', function () {
       setConnected(true);
     });
 
-    socket.on('disconnect', () => {
+    socket.on('disconnect', function () {
       setConnected(false);
     });
 
-    return () => {
+    return function () {
       socket.off('connect');
       socket.off('disconnect');
     };

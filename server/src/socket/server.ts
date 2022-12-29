@@ -23,16 +23,10 @@ export function createSocketServer(httpServer: httpServer) {
   );
 
   io.on('connection', socket => {
-    new ChatEventHandler(io, socket, store);
+    const eventHandler = new ChatEventHandler(io, socket, store);
 
     socket.on('disconnect', () => {
-      // If user has not successfully joined the chat room
-      // there's no need to remove them from store
-      if (!socket.data.user) {
-        return;
-      }
-
-      store.removeUser(socket.data.user.id);
+      eventHandler.disconnectUser();
     });
   });
 }

@@ -11,11 +11,25 @@ export default class ChatEventHandler {
     this.socket = socket;
     this.store = store;
 
-    this.initSocketEvents();
+    this.initClientEventListeners();
   }
 
-  private initSocketEvents = () => {
+  public disconnectUser = () => {
+    // If user has not successfully joined the chat room
+    // there's no need to remove them from store
+    if (!this.socket.data.user) {
+      return;
+    }
+
+    this.store.removeUser(this.socket.data.user.id);
+    this.io.emit('user:leave', this.socket.data.user.name);
+    delete this.socket.data.user;
+  };
+
+  private initClientEventListeners = () => {
     this.socket.on('join:set_name', this.handleSetName);
+    this.socket.on('user:get_list', this.sendUserList);
+    this.socket.on('user:log_out', this.logUserOut);
   };
 
   private handleSetName = (name: string) => {
@@ -40,12 +54,23 @@ export default class ChatEventHandler {
       return;
     }
 
-    this.store.addUser({
+    const user = this.store.addUser({
       id: this.socket.id,
       name,
     });
 
+    this.socket.data.user = user;
+
     this.socket.emit('join:accept_name');
-    this.io.emit('user:connected', name);
+    this.socket.broadcast.emit('user:join', name);
+  };
+
+  private sendUserList = () => {
+    const names = this.store.users.map(user => user.name);
+    this.socket.emit('user:list', names);
+  };
+
+  private logUserOut = () => {
+    this.disconnectUser();
   };
 }
