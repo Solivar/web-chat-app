@@ -1,6 +1,6 @@
 import { Message } from '@server/types/Message.js';
 import { useContext, useEffect, useReducer } from 'react';
-import { SocketContext } from '../../socket-context.js';
+import { SocketContext } from '../../context/socket-context';
 
 enum MessageListActionType {
   LIST = 'LIST',

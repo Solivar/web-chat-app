@@ -1,5 +1,5 @@
-import { useContext, useEffect } from 'react';
-import { SocketContext } from '../../socket-context.js';
+import { useContext, useEffect, useState } from 'react';
+import { SocketContext } from '../../context/socket-context';
 
 export function useNameSetupEvents({
   nameRef,
@@ -7,8 +7,9 @@ export function useNameSetupEvents({
 }: {
   nameRef: React.MutableRefObject<string>;
   updateName: (name: string) => void;
-}) {
+}): [string, React.Dispatch<React.SetStateAction<string>>] {
   const socket = useContext(SocketContext);
+  const [name, setName] = useState('');
 
   useEffect(() => {
     socket.on('join:accept_name', function () {
@@ -19,4 +20,6 @@ export function useNameSetupEvents({
       socket.off('join:accept_name');
     };
   }, []);
+
+  return [name, setName];
 }

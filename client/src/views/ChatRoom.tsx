@@ -1,20 +1,31 @@
+import { useContext } from 'react';
+
 import MessageList from '../components/Message/MessageList';
 import MessageInput from '../components/Message/MessageInput';
 import styles from './ChatRoom.module.scss';
 import UserList from '../components/User/UserList';
+import { NameContext } from '../context/name-context';
+import { SocketContext } from '../context/socket-context';
 import { useUserEvents } from '../hooks/events/useUserEvents';
 import { useMessageEvents } from '../hooks/events/useMessageEvents';
 
-export default function ChatRoom({ leaveRoom }: { leaveRoom: () => void }) {
+export default function ChatRoom() {
   const users = useUserEvents();
   const messages = useMessageEvents();
+  const name = useContext(NameContext);
+  const socket = useContext(SocketContext);
+
+  function handleClick() {
+    socket.emit('user:log_out');
+    name.setValue('');
+  }
 
   return (
     <div className="container is-fullhd is-flex is-flex-direction-column is-full-height">
       <div className="is-flex is-justify-content-space-between is-align-content-center pt-3 pl-5 pr-2">
         <h1 className="is-size-5 has-text-weight-bold mb">Web Chat App</h1>
         <button
-          onClick={leaveRoom}
+          onClick={handleClick}
           type="button"
           className="button is-ghost"
         >

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { SocketContext } from '../../socket-context.js';
+import { SocketContext } from '../../context/socket-context';
 
 export function useErrorEvents({
   setError,

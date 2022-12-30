@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 
 import styles from './MessageInput.module.scss';
 import { MESSAGE_MAX_LENGTH, MESSAGE_MIN_LENGTH } from '../../../../server/src/constants';
-import { SocketContext } from '../../socket-context';
+import { SocketContext } from '../../context/socket-context';
 
 export default function MessageInput() {
   const socket = useContext(SocketContext);
