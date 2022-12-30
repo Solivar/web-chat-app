@@ -1,11 +1,14 @@
 import styles from './MessageItem.module.scss';
 import { Message } from '@server/types/Message';
+import { useContext } from 'react';
+import { NameContext } from '../../context/name-context';
 
 export default function MessageItem({ name, content, timestamp, isAnnouncement }: Message) {
   const date = new Date(timestamp);
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+  const userName = useContext(NameContext);
 
   function isToday() {
     const today = new Date();
@@ -38,12 +41,12 @@ export default function MessageItem({ name, content, timestamp, isAnnouncement }
   return (
     <div
       className={`${
-        name === 'Brandon' ? 'is-align-items-flex-end' : 'is-align-items-flex-start'
+        name === userName.value ? 'is-align-items-flex-end' : 'is-align-items-flex-start'
       } is-flex is-flex-direction-column`}
     >
       <div
         className={`${styles.message} ${
-          name === 'Brandon' ? 'has-background-primary-light' : 'has-background-white-ter'
+          name === userName.value ? 'has-background-primary-light' : 'has-background-white-ter'
         } px-4 py-2 is-rounded`}
       >
         <p>

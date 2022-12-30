@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 
 import MessageItem from './MessageItem';
-import styles from './MessageInput.module.scss';
 import { Message } from '@server/types/Message';
 
 interface Props {

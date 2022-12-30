@@ -28,7 +28,7 @@ function messageListReducer(state: MessageListState, action: MessageListAction):
 
 export function useMessageEvents() {
   const socket = useContext(SocketContext);
-  const [users, dispatch] = useReducer(messageListReducer, []);
+  const [messages, dispatch] = useReducer(messageListReducer, []);
 
   useEffect(() => {
     socket.emit('message:get_list');
@@ -42,11 +42,10 @@ export function useMessageEvents() {
     });
 
     return function () {
+      socket.off('message:list');
       socket.off('message:receive');
-      socket.off('user:join');
-      socket.off('user:leave');
     };
   }, []);
 
-  return users;
+  return messages;
 }
