@@ -10,8 +10,8 @@ import { useUserEvents } from '../hooks/events/useUserEvents';
 import { useMessageEvents } from '../hooks/events/useMessageEvents';
 
 export default function ChatRoom() {
-  const users = useUserEvents();
-  const messages = useMessageEvents();
+  const [messages, messagesDispatch] = useMessageEvents();
+  const users = useUserEvents({ messagesDispatch });
   const name = useContext(NameContext);
   const socket = useContext(SocketContext);
 

@@ -1,5 +1,6 @@
 import { useContext, useEffect, useReducer } from 'react';
 import { SocketContext } from '../../context/socket-context';
+import { MessageListAction, MessageListActionType } from './useMessageEvents';
 
 enum UserListActionType {
   LIST = 'LIST',
@@ -34,7 +35,23 @@ function userListReducer(state: UserListState, action: UserListAction): string[]
   }
 }
 
-export function useUserEvents() {
+function prepareUserAnnouncement(name: string, message: string) {
+  const currentTimestamp = +new Date();
+
+  return {
+    id: `${name} ${currentTimestamp}`,
+    name,
+    isAnnouncement: true,
+    content: message,
+    timestamp: currentTimestamp,
+  };
+}
+
+export function useUserEvents({
+  messagesDispatch,
+}: {
+  messagesDispatch: React.Dispatch<MessageListAction>;
+}) {
   const socket = useContext(SocketContext);
   const [users, dispatch] = useReducer(userListReducer, []);
 
@@ -47,10 +64,22 @@ export function useUserEvents() {
 
     socket.on('user:join', function (name: string) {
       dispatch({ type: UserListActionType.JOIN, payload: name });
+
+      const announcement = prepareUserAnnouncement(name, `${name} has joined.`);
+      messagesDispatch({
+        type: MessageListActionType.RECEIVE,
+        payload: announcement,
+      });
     });
 
     socket.on('user:leave', function (name: string) {
       dispatch({ type: UserListActionType.LEAVE, payload: name });
+
+      const announcement = prepareUserAnnouncement(name, `${name} has left.`);
+      messagesDispatch({
+        type: MessageListActionType.RECEIVE,
+        payload: announcement,
+      });
     });
 
     return function () {

@@ -2,12 +2,12 @@ import { Message } from '@server/types/Message.js';
 import { useContext, useEffect, useReducer } from 'react';
 import { SocketContext } from '../../context/socket-context';
 
-enum MessageListActionType {
+export enum MessageListActionType {
   LIST = 'LIST',
   RECEIVE = 'RECEIVE',
 }
 
-type MessageListAction =
+export type MessageListAction =
   | { type: MessageListActionType.LIST; payload: Message[] }
   | { type: MessageListActionType.RECEIVE; payload: Message };
 
@@ -26,7 +26,7 @@ function messageListReducer(state: MessageListState, action: MessageListAction):
   }
 }
 
-export function useMessageEvents() {
+export function useMessageEvents(): [Message[], React.Dispatch<MessageListAction>] {
   const socket = useContext(SocketContext);
   const [messages, dispatch] = useReducer(messageListReducer, []);
 
@@ -47,5 +47,5 @@ export function useMessageEvents() {
     };
   }, []);
 
-  return messages;
+  return [messages, dispatch];
 }
