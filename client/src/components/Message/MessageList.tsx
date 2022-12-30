@@ -36,7 +36,7 @@ export default function MessageList({ messages }: Props) {
     <section
       ref={messageListRef}
       onScroll={handleScroll}
-      className="has-overflow-y-scroll py-5 px-6 is-flex-grow-1"
+      className="has-overflow-y-scroll has-thin-scrollbar py-5 px-6 is-flex-grow-1"
     >
       {messages.length === 0 && <p>Welcome, say hi!</p>}
 

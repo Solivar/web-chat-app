@@ -1,16 +1,24 @@
 @use 'bulma/sass/utilities/initial-variables.sass' as variables;
 
-.messageInput {
+.container {
   border-top: 1px solid variables.$grey-lighter;
 
-  &__textarea {
-    padding-right: 4em !important;
+  .input {
+    display: grid;
+    grid-template-columns: 1fr 54px;
+    height: 50px;
+    border-radius: variables.$radius-rounded;
+    gap: 0.5em;
+
+    &__textarea {
+      padding-right: 4em;
+      border: none;
+      box-shadow: none !important;
+    }
   }
 
-  &__charCount {
-    position: absolute;
-    top: 1em;
-    right: 1em;
-    z-index: 1;
+  .button {
+    height: 50px;
+    width: 50px;
   }
 }

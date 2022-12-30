@@ -40,7 +40,7 @@ export default function ChatRoom() {
             <MessageList messages={messages} />
             <MessageInput />
           </main>
-          <aside className={`${styles.sidebar} has-overflow-y-scroll p-5 pr-0`}>
+          <aside className={`${styles.sidebar} has-overflow-y-scroll has-thin-scrollbar p-5 pr-0`}>
             <UserList names={users} />
           </aside>
         </div>
