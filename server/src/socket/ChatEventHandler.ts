@@ -36,6 +36,7 @@ export default class ChatEventHandler {
     this.socket.on('user:get_list', this.handleUserList);
     this.socket.on('user:log_out', this.handleLogOut);
     this.socket.on('message:send', this.handleSendMessage);
+    this.socket.on('message:get_list', this.handleMessageList);
   };
 
   private handleSetName = (name: string) => {
@@ -96,5 +97,9 @@ export default class ChatEventHandler {
 
     const message = this.store.addMessage(content, this.socket.data.user.name);
     this.io.emit('message:receive', message);
+  };
+
+  private handleMessageList = () => {
+    this.io.emit('message:list', this.store.messages);
   };
 }

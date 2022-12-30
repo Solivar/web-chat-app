@@ -3,10 +3,11 @@ import { MESSAGES_LIMIT } from './constants';
 
 import { Message } from './types/Message';
 import { User } from './types/User';
+import messages from './tests/messages';
 
 export default class Store {
   public users: User[] = [];
-  public messages: Message[] = [];
+  public messages: Message[] = messages;
 
   public nameExists(name: string) {
     const exists = this.users.find(user => user.name === name);
