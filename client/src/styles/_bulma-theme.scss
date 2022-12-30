@@ -1,3 +1,5 @@
+@use 'bulma/sass/utilities/initial-variables.sass' as variables;
+
 // Bulma custom theme variables
 // Need to come before importing Bulma
 $body-background-color: #f9f9f9;
@@ -35,4 +37,28 @@ $body-background-color: #f9f9f9;
 
 .has-overflow-y-scroll {
   overflow-y: auto;
+}
+
+.has-thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: variables.$grey-lighter variables.$grey;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: variables.$grey-lighter;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: variables.$grey;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: variables.$grey;
+    border-radius: 10px;
+  }
 }

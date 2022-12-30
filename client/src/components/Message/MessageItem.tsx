@@ -1,5 +1,5 @@
-import { Message } from './Message';
 import styles from './MessageItem.module.scss';
+import { Message } from '@server/types/Message';
 
 export default function MessageItem({ name, content, timestamp, isAnnouncement }: Message) {
   const date = new Date(timestamp);

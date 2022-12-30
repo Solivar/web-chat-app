@@ -1,0 +1,5 @@
+@use 'bulma/sass/utilities/initial-variables.sass' as variables;
+
+.messageInput {
+  border-top: 1px solid variables.$grey-lighter;
+}

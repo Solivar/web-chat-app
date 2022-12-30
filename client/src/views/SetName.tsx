@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 
 import styles from './SetName.module.scss';
-import { NAME_MAX_LENGTH, NAME_MIN_LENGTH } from '@server/constants';
+import { NAME_MAX_LENGTH, NAME_MIN_LENGTH } from '../../../server/src/constants';
 import { SocketContext } from '../socket-context';
 import { useErrorEvents } from '../hooks/events/useErrorEvents';
 import { useNameSetupEvents } from '../hooks/events/useNameSetupEvents';

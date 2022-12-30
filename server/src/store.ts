@@ -1,7 +1,12 @@
+import { randomBytes } from 'crypto';
+import { MESSAGES_LIMIT } from './constants';
+
+import { Message } from './types/Message';
 import { User } from './types/User';
 
 export default class Store {
   public users: User[] = [];
+  public messages: Message[] = [];
 
   public nameExists(name: string) {
     const exists = this.users.find(user => user.name === name);
@@ -32,5 +37,25 @@ export default class Store {
     this.users.splice(userIndex, 1);
 
     return name;
+  }
+
+  public addMessage(content: string, userName: string) {
+    const id = randomBytes(16).toString('hex');
+    const currentTimestamp: number = +new Date();
+    const message: Message = {
+      id,
+      name: userName,
+      content,
+      timestamp: currentTimestamp,
+    };
+
+    // If the store is full, remove oldest message
+    if (this.messages.length === MESSAGES_LIMIT) {
+      this.messages.shift();
+    }
+
+    this.messages.push(message);
+
+    return message;
   }
 }

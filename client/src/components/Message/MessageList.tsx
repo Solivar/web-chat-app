@@ -1,6 +1,8 @@
-import MessageItem from './MessageItem';
-import { Message } from './Message';
 import { useRef } from 'react';
+
+import MessageItem from './MessageItem';
+import styles from './MessageInput.module.scss';
+import { Message } from '@server/types/Message';
 
 interface Props {
   messages: Message[];
@@ -11,7 +13,7 @@ export default function MessageList({ messages }: Props) {
   const bottomOfMessageListRef: React.RefObject<HTMLLIElement> = useRef(null);
 
   return (
-    <section>
+    <section className="has-overflow-y-scroll py-5 px-6 is-flex-grow-1">
       {messages.length === 0 && <p>Welcome, say hi!</p>}
 
       {messages.length > 0 && (

@@ -1,4 +1,5 @@
 import { FaCircle } from 'react-icons/fa';
+
 import HorizontalBreak from '../HorizontalBreak';
 
 export default function UserList({ names }: { names: string[] }) {

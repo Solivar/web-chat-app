@@ -1,4 +1,9 @@
-import { NAME_MAX_LENGTH, NAME_MIN_LENGTH } from '../constants';
+import {
+  MESSAGE_MAX_LENGTH,
+  MESSAGE_MIN_LENGTH,
+  NAME_MAX_LENGTH,
+  NAME_MIN_LENGTH,
+} from '../constants';
 import Store from '../store';
 import { ChatSocket, ChatSocketsServer } from '../types/Socket';
 export default class ChatEventHandler {
@@ -28,8 +33,9 @@ export default class ChatEventHandler {
 
   private initClientEventListeners = () => {
     this.socket.on('join:set_name', this.handleSetName);
-    this.socket.on('user:get_list', this.sendUserList);
-    this.socket.on('user:log_out', this.logUserOut);
+    this.socket.on('user:get_list', this.handleUserList);
+    this.socket.on('user:log_out', this.handleLogOut);
+    this.socket.on('message:send', this.handleSendMessage);
   };
 
   private handleSetName = (name: string) => {
@@ -65,12 +71,30 @@ export default class ChatEventHandler {
     this.socket.broadcast.emit('user:join', name);
   };
 
-  private sendUserList = () => {
+  private handleUserList = () => {
     const names = this.store.users.map(user => user.name);
     this.socket.emit('user:list', names);
   };
 
-  private logUserOut = () => {
+  private handleLogOut = () => {
     this.disconnectUser();
+  };
+
+  private handleSendMessage = (content: string) => {
+    if (!this.socket.data.user) {
+      return;
+    }
+
+    if (content.length < MESSAGE_MIN_LENGTH || MESSAGE_MAX_LENGTH < content.length) {
+      this.socket.emit(
+        'error',
+        `Message must be ${MESSAGE_MIN_LENGTH} - ${MESSAGE_MIN_LENGTH} characters long.`,
+      );
+
+      return;
+    }
+
+    const message = this.store.addMessage(content, this.socket.data.user.name);
+    this.io.emit('message:receive', message);
   };
 }
