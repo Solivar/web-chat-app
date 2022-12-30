@@ -2,4 +2,15 @@
 
 .messageInput {
   border-top: 1px solid variables.$grey-lighter;
+
+  &__textarea {
+    padding-right: 4em !important;
+  }
+
+  &__charCount {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    z-index: 1;
+  }
 }

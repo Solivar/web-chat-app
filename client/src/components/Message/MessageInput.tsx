@@ -65,12 +65,19 @@ export default function MessageInput() {
                 </span>
               </button>
             </div>
-            <div className="control is-expanded">
+            <div className="control is-expanded is-relative">
+              <div
+                className={`${styles.messageInput__charCount} ${
+                  message.length >= MESSAGE_MAX_LENGTH ? 'has-text-danger' : 'has-text-grey'
+                } is-size-7 has-text-weight-semibold	`}
+              >
+                {message.length > 0 && `${message.length} / ${MESSAGE_MAX_LENGTH}`}
+              </div>
               <textarea
                 value={message}
                 onChange={handleChange}
                 onKeyPress={handleKeyPress}
-                className={`input is-rounded textarea has-fixed-size has-thin-scrollbar py-2 px-4`}
+                className={`${styles.messageInput__textarea} input is-rounded textarea has-fixed-size has-thin-scrollbar py-2 pl-4`}
                 placeholder="Enter your message"
                 rows={1}
                 autoFocus
