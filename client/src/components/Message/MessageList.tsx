@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import MessageItem from './MessageItem';
 import { Message } from '@server/types/Message';
@@ -9,10 +9,35 @@ interface Props {
 
 export default function MessageList({ messages }: Props) {
   const lastItemIndex = messages.length - 1;
-  const bottomOfMessageListRef: React.RefObject<HTMLLIElement> = useRef(null);
+  const messageListRef: React.RefObject<HTMLLIElement> = useRef(null);
+  const [shouldScrollOnNewMessage, setShouldScrollOnNewMessage] = useState(true);
+
+  // Scroll to the bottom of list when new messages arrive
+  // Don't scroll if user has scrolled up to read past messages
+  useEffect(() => {
+    if (messageListRef.current && shouldScrollOnNewMessage) {
+      messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  function handleScroll(event: React.UIEvent<HTMLElement>) {
+    const hasScrolledToBottom =
+      event.currentTarget.scrollTop ===
+      event.currentTarget.scrollHeight - event.currentTarget.offsetHeight;
+
+    if (hasScrolledToBottom) {
+      setShouldScrollOnNewMessage(true);
+    } else {
+      setShouldScrollOnNewMessage(false);
+    }
+  }
 
   return (
-    <section className="has-overflow-y-scroll py-5 px-6 is-flex-grow-1">
+    <section
+      ref={messageListRef}
+      onScroll={handleScroll}
+      className="has-overflow-y-scroll py-5 px-6 is-flex-grow-1"
+    >
       {messages.length === 0 && <p>Welcome, say hi!</p>}
 
       {messages.length > 0 && (
@@ -20,10 +45,7 @@ export default function MessageList({ messages }: Props) {
           {messages.map((message, index) => {
             if (index === lastItemIndex) {
               return (
-                <li
-                  key={message.id}
-                  ref={bottomOfMessageListRef}
-                >
+                <li key={message.id}>
                   <MessageItem {...message} />
                 </li>
               );
