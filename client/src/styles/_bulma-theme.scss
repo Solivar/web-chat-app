@@ -1,4 +1,5 @@
 @use 'bulma/sass/utilities/initial-variables.sass' as variables;
+@use 'bulma/sass/utilities/derived-variables.sass' as derived-variables;
 
 // Bulma custom theme variables
 // Need to come before importing Bulma
@@ -58,4 +59,9 @@ $body-background-color: #f9f9f9;
   &::-webkit-scrollbar-thumb:hover {
     background: variables.$grey-light;
   }
+}
+
+.message.is-danger .message-header {
+  border-radius: 6px;
+  background-color: derived-variables.$danger-dark;
 }

@@ -1,0 +1,10 @@
+@use 'bulma/sass/utilities/derived-variables.sass' as variables;
+
+.notification {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 75%;
+  opacity: 0.95;
+}

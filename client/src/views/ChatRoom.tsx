@@ -8,10 +8,13 @@ import { NameContext } from '../context/name-context';
 import { SocketContext } from '../context/socket-context';
 import { useUserEvents } from '../hooks/events/useUserEvents';
 import { useMessageEvents } from '../hooks/events/useMessageEvents';
+import { useErrorEvents } from '../hooks/events/useErrorEvents';
+import Notification from '../components/Notification';
 
 export default function ChatRoom() {
   const [messages, messagesDispatch] = useMessageEvents();
   const users = useUserEvents({ messagesDispatch });
+  const [error, setError] = useErrorEvents();
   const name = useContext(NameContext);
   const socket = useContext(SocketContext);
 
@@ -36,7 +39,11 @@ export default function ChatRoom() {
         <div
           className={`${styles.room} container is-fullhd has-background-white has-border is-rounded mx-auto is-relative`}
         >
-          <main className={`${styles.room__main} is-flex is-flex-direction-column`}>
+          <main className={`${styles.room__main} is-flex is-flex-direction-column is-relative`}>
+            <Notification
+              message={error}
+              setMessage={setError}
+            />
             <MessageList messages={messages} />
             <MessageInput />
           </main>

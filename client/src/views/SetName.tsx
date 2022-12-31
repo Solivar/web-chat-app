@@ -11,7 +11,7 @@ import { NameContext } from '../context/name-context';
 export default function SetName() {
   const socket = useContext(SocketContext);
   const nameContext = useContext(NameContext);
-  const [error, setError] = useState('');
+  const [error, setError] = useErrorEvents();
   const [isLoading, setIsLoading] = useState(false);
   const nameRef = useRef('');
   const [name, setName] = useNameSetupEvents({ nameRef, updateName: nameContext.setValue });
@@ -20,7 +20,9 @@ export default function SetName() {
     nameRef.current = name;
   }, [name]);
 
-  useErrorEvents({ setError, setIsLoading });
+  useEffect(() => {
+    setIsLoading(false);
+  }, [error]);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setError('');

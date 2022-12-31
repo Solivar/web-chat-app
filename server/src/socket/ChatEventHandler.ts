@@ -6,6 +6,7 @@ import {
 } from '../constants';
 import Store from '../store';
 import { ChatSocket, ChatSocketsServer } from '../types/Socket';
+import { isUserSpamming } from './helper';
 export default class ChatEventHandler {
   private io: ChatSocketsServer;
   private socket: ChatSocket;
@@ -91,6 +92,12 @@ export default class ChatEventHandler {
         'error',
         `Message must be ${MESSAGE_MIN_LENGTH} - ${MESSAGE_MIN_LENGTH} characters long.`,
       );
+
+      return;
+    }
+
+    if (isUserSpamming(this.socket.data.user)) {
+      this.socket.emit('error', 'You are sending too many messages, slow down!');
 
       return;
     }

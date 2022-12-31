@@ -1,23 +1,19 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { SocketContext } from '../../context/socket-context';
 
-export function useErrorEvents({
-  setError,
-  setIsLoading,
-}: {
-  setError: React.Dispatch<React.SetStateAction<string>>;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export function useErrorEvents(): [string, React.Dispatch<React.SetStateAction<string>>] {
   const socket = useContext(SocketContext);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     socket.on('error', function (message) {
       setError(message);
-      setIsLoading(false);
     });
 
     return () => {
       socket.off('error');
     };
   }, []);
+
+  return [error, setError];
 }
