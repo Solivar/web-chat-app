@@ -1,26 +1,22 @@
-import { Picker } from 'emoji-mart';
-import { useState } from 'react';
+import Picker, { EmojiClickData, EmojiStyle } from 'emoji-picker-react';
 
-export default function EmojiPicker() {
-  const [isOpen, setIsOpen] = useState(false);
-  // const addEmoji = emoji => {
-  //   handleEmoji(emoji);
-  // };
+export default function EmojiPicker({
+  setMessage,
+}: {
+  setMessage: React.Dispatch<React.SetStateAction<string>>;
+}) {
+  function handleClick(emojiData: EmojiClickData) {
+    setMessage(prevMessage => {
+      return `${prevMessage} ${emojiData.emoji}`;
+    });
+  }
 
   return (
-    <div
-      style={
-        isOpen
-          ? { height: 'auto', padding: '0.75rem 0', boxSizing: 'border-box' }
-          : { height: 0, overflow: 'hidden' }
-      }
-    >
-      {/* <Picker
-        onSelect={handleSelect}
-        color="#00D1B2"
-        showPreview={false}
-        title=""
-      /> */}
-    </div>
+    <Picker
+      onEmojiClick={handleClick}
+      lazyLoadEmojis={true}
+      width="100%"
+      emojiStyle={EmojiStyle.NATIVE}
+    />
   );
 }

@@ -4,11 +4,13 @@ import { useContext, useState } from 'react';
 import styles from './MessageInput.module.scss';
 import { MESSAGE_MAX_LENGTH, MESSAGE_MIN_LENGTH } from '../../../../server/src/constants';
 import { SocketContext } from '../../context/socket-context';
+import EmojiPicker from '../EmojiPicker';
 import MessageInputButton from './MessageInputButton';
 
 export default function MessageInput() {
   const socket = useContext(SocketContext);
   const [message, setMessage] = useState('');
+  const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
 
   function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
     setMessage(event.target.value);
@@ -55,9 +57,19 @@ export default function MessageInput() {
     <section className={`${styles.container} has-background-white-bis`}>
       <div className="px-3 py-5">
         <form onSubmit={handleSubmit}>
+          {isEmojiPickerOpen && (
+            <div className="mb-3">
+              <EmojiPicker setMessage={setMessage} />
+            </div>
+          )}
           <div className="field is-grouped is-align-items-center">
             <div className="control">
-              <MessageInputButton classes="is-rounded">
+              <MessageInputButton
+                classes="is-rounded"
+                onClick={() => {
+                  setIsEmojiPickerOpen(isOpen => !isOpen);
+                }}
+              >
                 <FaRegSmile />
               </MessageInputButton>
             </div>
