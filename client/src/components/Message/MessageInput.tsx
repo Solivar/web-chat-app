@@ -4,6 +4,7 @@ import { useContext, useState } from 'react';
 import styles from './MessageInput.module.scss';
 import { MESSAGE_MAX_LENGTH, MESSAGE_MIN_LENGTH } from '../../../../server/src/constants';
 import { SocketContext } from '../../context/socket-context';
+import MessageInputButton from './MessageInputButton';
 
 export default function MessageInput() {
   const socket = useContext(SocketContext);
@@ -56,14 +57,9 @@ export default function MessageInput() {
         <form onSubmit={handleSubmit}>
           <div className="field is-grouped is-align-items-center">
             <div className="control">
-              <button
-                type="button"
-                className={`${styles.button} button is-outlined is-rounded`}
-              >
-                <span className="icon is-small">
-                  <FaRegSmile />
-                </span>
-              </button>
+              <MessageInputButton classes="is-rounded">
+                <FaRegSmile />
+              </MessageInputButton>
             </div>
             <div className="control is-expanded">
               <label className={`${styles.input} input`}>
@@ -86,15 +82,13 @@ export default function MessageInput() {
               </label>
             </div>
             <div className="control">
-              <button
+              <MessageInputButton
                 type="submit"
-                className={`${styles.button} button is-primary is-rounded`}
                 disabled={!isValidMessageLength()}
+                classes="is-primary"
               >
-                <span className="icon is-small">
-                  <FaPaperPlane />
-                </span>
-              </button>
+                <FaPaperPlane />
+              </MessageInputButton>
             </div>
           </div>
         </form>
