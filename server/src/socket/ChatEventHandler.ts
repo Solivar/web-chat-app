@@ -107,6 +107,6 @@ export default class ChatEventHandler {
   };
 
   private handleMessageList = () => {
-    this.io.emit('message:list', this.store.messages);
+    this.socket.emit('message:list', this.store.messages);
   };
 }

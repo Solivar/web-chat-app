@@ -1,3 +1,4 @@
+import { Message } from '@server/types/Message';
 import { useContext, useEffect, useReducer } from 'react';
 import { SocketContext } from '../../context/socket-context';
 import { MessageListAction, MessageListActionType } from './useMessageEvents';
@@ -35,7 +36,7 @@ function userListReducer(state: UserListState, action: UserListAction): string[]
   }
 }
 
-function prepareUserAnnouncement(name: string, message: string) {
+function prepareUserAnnouncement(name: string, message: string): Message {
   const currentTimestamp = +new Date();
 
   return {
