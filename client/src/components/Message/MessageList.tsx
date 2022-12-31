@@ -18,7 +18,7 @@ export default function MessageList({ messages }: Props) {
     if (messageListRef.current && shouldScrollOnNewMessage) {
       messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
     }
-  }, [messages]);
+  }, [messages, shouldScrollOnNewMessage]);
 
   function handleScroll(event: React.UIEvent<HTMLElement>) {
     const hasScrolledToBottom =

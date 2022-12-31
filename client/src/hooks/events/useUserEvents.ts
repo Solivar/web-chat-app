@@ -39,7 +39,7 @@ function prepareUserAnnouncement(name: string, message: string) {
   const currentTimestamp = +new Date();
 
   return {
-    id: `${name} ${currentTimestamp}`,
+    id: `${name}${currentTimestamp}`,
     name,
     isAnnouncement: true,
     content: message,
@@ -87,7 +87,7 @@ export function useUserEvents({
       socket.off('user:join');
       socket.off('user:leave');
     };
-  }, []);
+  }, [socket, messagesDispatch]);
 
   return users;
 }

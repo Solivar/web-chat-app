@@ -12,11 +12,11 @@ import { useErrorEvents } from '../hooks/events/useErrorEvents';
 import Notification from '../components/Notification';
 
 export default function ChatRoom() {
+  const name = useContext(NameContext);
+  const socket = useContext(SocketContext);
   const [messages, messagesDispatch] = useMessageEvents();
   const users = useUserEvents({ messagesDispatch });
   const [error, setError] = useErrorEvents();
-  const name = useContext(NameContext);
-  const socket = useContext(SocketContext);
 
   function handleClick() {
     socket.emit('user:log_out');

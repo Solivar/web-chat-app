@@ -13,7 +13,7 @@ export function useErrorEvents(): [string, React.Dispatch<React.SetStateAction<s
     return () => {
       socket.off('error');
     };
-  }, []);
+  }, [socket]);
 
   return [error, setError];
 }

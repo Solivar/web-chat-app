@@ -25,7 +25,7 @@ export default function Notification({
     timeoutId.current = window.setTimeout(() => {
       setMessage('');
     }, hideAfterMs);
-  }, [message]);
+  }, [message, setMessage]);
 
   function handleClick() {
     setMessage('');

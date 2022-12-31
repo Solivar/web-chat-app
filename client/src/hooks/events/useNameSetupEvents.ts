@@ -19,7 +19,7 @@ export function useNameSetupEvents({
     return function () {
       socket.off('join:accept_name');
     };
-  }, []);
+  }, [socket, nameRef, updateName]);
 
   return [name, setName];
 }

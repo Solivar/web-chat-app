@@ -45,7 +45,7 @@ export function useMessageEvents(): [Message[], React.Dispatch<MessageListAction
       socket.off('message:list');
       socket.off('message:receive');
     };
-  }, []);
+  }, [socket]);
 
   return [messages, dispatch];
 }

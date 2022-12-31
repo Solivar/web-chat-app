@@ -44,7 +44,7 @@ export function isUserSpamming(user: User) {
 
   if (
     user.messageCountWhileLimited &&
-    MESSAGES_MAX_CONSECUTIVE_AMOUNT < user.messageCountWhileLimited
+    MESSAGES_MAX_CONSECUTIVE_AMOUNT <= user.messageCountWhileLimited
   ) {
     return true;
   }
