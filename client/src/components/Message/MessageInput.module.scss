@@ -1,19 +1,57 @@
+@use 'sass:map';
+@use 'bulma/sass/helpers/spacing.sass' as spacing;
+@use 'bulma/sass/utilities/mixins.sass' as mixins;
 @use 'bulma/sass/utilities/initial-variables.sass' as variables;
 
-.container {
+.messageInput {
   border-top: 1px solid variables.$grey-lighter;
 
   .input {
     display: grid;
-    grid-template-columns: 1fr 54px;
-    height: 50px;
+    grid-template-columns: 1fr 45px;
+    height: 40px;
     border-radius: variables.$radius-rounded;
-    gap: 0.5em;
+
+    @include mixins.mobile {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    @include mixins.tablet {
+      height: 50px;
+      grid-template-columns: 1fr 54px;
+    }
 
     &__textarea {
       padding-right: 4em;
       border: none;
       box-shadow: none !important;
+
+      @include mixins.mobile {
+        padding: 0 0.5em 0 !important;
+      }
     }
+  }
+}
+
+.container {
+  padding: map.get(spacing.$spacing-values, '5') map.get(spacing.$spacing-values, '2')
+    map.get(spacing.$spacing-values, '2');
+
+  @include mixins.tablet {
+    padding: map.get(spacing.$spacing-values, '6') map.get(spacing.$spacing-values, '4')
+      map.get(spacing.$spacing-values, '2');
+  }
+}
+
+.counter {
+  font-size: 0.6rem;
+  width: 45px;
+  text-align: right;
+  justify-self: flex-end;
+
+  @include mixins.tablet {
+    width: auto;
+    font-size: 0.75rem;
   }
 }

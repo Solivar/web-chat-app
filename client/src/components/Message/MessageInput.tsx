@@ -60,11 +60,11 @@ export default function MessageInput({
   }
 
   return (
-    <section className={`${styles.container} has-background-white-bis`}>
-      <div className="px-3 pt-5 pb-1">
+    <section className={`${styles.messageInput} has-background-white-bis`}>
+      <div className={`${styles.container}`}>
         <form
           onSubmit={handleSubmit}
-          className="mb-2"
+          className="mb-3"
         >
           {isEmojiPickerOpen && (
             <div className="mb-3">
@@ -89,14 +89,14 @@ export default function MessageInput({
                   onChange={handleChange}
                   onKeyPress={handleKeyPress}
                   className={`${styles.input__textarea} input is-rounded textarea has-fixed-size has-thin-scrollbar py-2 pl-4`}
-                  placeholder="Enter your message"
+                  placeholder="Enter message"
                   rows={1}
                   autoFocus
                 />
                 <div
-                  className={`${styles.charCount} ${
+                  className={`${styles.counter} ${
                     message.length >= MESSAGE_MAX_LENGTH ? 'has-text-danger' : 'has-text-grey'
-                  } is-size-7 has-text-weight-semibold	`}
+                  } has-text-weight-semibold`}
                 >
                   {message.length > 0 && `${message.length} / ${MESSAGE_MAX_LENGTH}`}
                 </div>

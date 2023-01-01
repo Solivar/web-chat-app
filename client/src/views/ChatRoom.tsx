@@ -32,7 +32,9 @@ export default function ChatRoom() {
 
   return (
     <div className="container is-fullhd is-flex is-flex-direction-column is-full-height">
-      <div className="is-flex is-justify-content-space-between is-align-content-center pt-3 pl-5 pr-2">
+      <div
+        className={`${styles.room__header} is-flex is-justify-content-space-between is-align-content-center`}
+      >
         <h1 className="is-size-5 has-text-weight-bold mb">Web Chat App</h1>
         <button
           onClick={handleClick}
@@ -42,11 +44,11 @@ export default function ChatRoom() {
           Leave chat
         </button>
       </div>
-      <div className="px-5 pt-2 pb-5 has-overflow-hidden is-flex-grow-1">
+      <div className={`${styles.chat} has-overflow-hidden is-flex-grow-1`}>
         <div
-          className={`${styles.room} container is-fullhd has-background-white has-border is-rounded mx-auto is-relative`}
+          className={`${styles.chat__container} container is-fullhd has-background-white has-border mx-auto is-relative`}
         >
-          <main className={`${styles.room__main} is-flex is-flex-direction-column is-relative`}>
+          <main className={`${styles.chat__main} is-flex is-flex-direction-column is-relative`}>
             <Notification
               message={error}
               setMessage={setError}

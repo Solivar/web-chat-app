@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import MessageItem from './MessageItem';
+import styles from './MessagesList.module.scss';
 import { Message } from '@server/types/Message';
 
 interface Props {
@@ -36,7 +37,7 @@ export default function MessageList({ messages }: Props) {
     <section
       ref={messageListRef}
       onScroll={handleScroll}
-      className="has-overflow-y-scroll has-thin-scrollbar py-5 px-6 is-flex-grow-1"
+      className={`${styles.messages} has-overflow-y-scroll has-thin-scrollbar is-flex-grow-1`}
     >
       {messages.length === 0 && <p>Welcome, say hi!</p>}
 

@@ -1,6 +1,11 @@
-@use 'bulma/sass/utilities/initial-variables.sass' as variables;
+@use 'bulma/sass/utilities/mixins.sass' as mixins;
 
 .inputButton {
-  height: 50px !important;
-  width: 50px;
+  height: 40px !important;
+  width: 40px;
+
+  @include mixins.tablet {
+    height: 50px !important;
+    width: 50px;
+  }
 }

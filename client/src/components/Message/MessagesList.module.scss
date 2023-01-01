@@ -1,0 +1,11 @@
+@use 'sass:map';
+@use 'bulma/sass/helpers/spacing.sass' as spacing;
+@use 'bulma/sass/utilities/mixins.sass' as mixins;
+
+.messages {
+  padding: map.get(spacing.$spacing-values, '2');
+
+  @include mixins.tablet {
+    padding: map.get(spacing.$spacing-values, '5') map.get(spacing.$spacing-values, '6');
+  }
+}

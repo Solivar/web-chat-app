@@ -125,6 +125,6 @@ export default class ChatEventHandler {
       return;
     }
 
-    this.socket.broadcast.emit('user:stop_typing', this.socket.data.user.name);
+    this.io.emit('user:stop_typing', this.socket.data.user.name);
   };
 }
