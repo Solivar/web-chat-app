@@ -41,15 +41,13 @@ export default function Notification({
   }
 
   return (
-    <div className={`${styles.notification} message is-danger`}>
-      <div className="message-header">
-        <p>{message}</p>
-        <button
-          className="delete"
-          onClick={handleClick}
-          aria-label="Delete notification"
-        ></button>
-      </div>
+    <div className={`${styles.notification} notification is-danger is-light`}>
+      <button
+        className="delete"
+        onClick={handleClick}
+        aria-label="Delete notification"
+      ></button>
+      <p>{message}</p>
     </div>
   );
 }
