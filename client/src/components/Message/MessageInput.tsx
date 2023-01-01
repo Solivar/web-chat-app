@@ -1,19 +1,24 @@
 import { FaPaperPlane, FaRegSmile } from 'react-icons/fa';
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 
+import EmojiPicker from '../EmojiPicker';
 import styles from './MessageInput.module.scss';
+import MessageInputButton from './MessageInputButton';
 import { MESSAGE_MAX_LENGTH, MESSAGE_MIN_LENGTH } from '../../../../server/src/constants';
 import { SocketContext } from '../../context/socket-context';
-import EmojiPicker from '../EmojiPicker';
-import MessageInputButton from './MessageInputButton';
 
-export default function MessageInput() {
+export default function MessageInput({
+  usersTypingComponent,
+}: {
+  usersTypingComponent: JSX.Element;
+}) {
   const socket = useContext(SocketContext);
   const [message, setMessage] = useState('');
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
 
   function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
     setMessage(event.target.value);
+    socket.emit('user:send_start_typing');
   }
 
   function handleSubmit(
@@ -27,6 +32,7 @@ export default function MessageInput() {
 
     socket.emit('message:send', message);
     setMessage('');
+    socket.emit('user:send_stop_typing');
   }
 
   function handleKeyPress(event: React.KeyboardEvent<HTMLTextAreaElement>) {
@@ -55,8 +61,11 @@ export default function MessageInput() {
 
   return (
     <section className={`${styles.container} has-background-white-bis`}>
-      <div className="px-3 py-5">
-        <form onSubmit={handleSubmit}>
+      <div className="px-3 pt-5 pb-1">
+        <form
+          onSubmit={handleSubmit}
+          className="mb-2"
+        >
           {isEmojiPickerOpen && (
             <div className="mb-3">
               <EmojiPicker setMessage={setMessage} />
@@ -104,6 +113,7 @@ export default function MessageInput() {
             </div>
           </div>
         </form>
+        {usersTypingComponent}
       </div>
     </section>
   );

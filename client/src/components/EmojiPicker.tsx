@@ -16,7 +16,9 @@ export default function EmojiPicker({
       onEmojiClick={handleClick}
       lazyLoadEmojis={true}
       width="100%"
+      height="350px"
       emojiStyle={EmojiStyle.NATIVE}
+      previewConfig={{ showPreview: false }}
     />
   );
 }

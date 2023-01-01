@@ -1,15 +1,17 @@
-import { useContext } from 'react';
+import { useContext, useRef, useState } from 'react';
 
 import MessageList from '../components/Message/MessageList';
 import MessageInput from '../components/Message/MessageInput';
+import Notification from '../components/Notification';
 import styles from './ChatRoom.module.scss';
 import UserList from '../components/User/UserList';
+import UsersTyping from '../components/User/UsersTyping';
 import { NameContext } from '../context/name-context';
 import { SocketContext } from '../context/socket-context';
-import { useUserEvents } from '../hooks/events/useUserEvents';
-import { useMessageEvents } from '../hooks/events/useMessageEvents';
 import { useErrorEvents } from '../hooks/events/useErrorEvents';
-import Notification from '../components/Notification';
+import { useMessageEvents } from '../hooks/events/useMessageEvents';
+import { useUserEvents } from '../hooks/events/useUserEvents';
+import { userTypingEntry, useUsersTypingEvents } from '../hooks/events/useUsersTypingEvents';
 
 export default function ChatRoom() {
   const name = useContext(NameContext);
@@ -17,6 +19,11 @@ export default function ChatRoom() {
   const [messages, messagesDispatch] = useMessageEvents();
   const users = useUserEvents({ messagesDispatch });
   const [error, setError] = useErrorEvents();
+  const [usersTyping, setUsersTyping] = useState<userTypingEntry[]>([]);
+  const usersTypingRef = useRef<userTypingEntry[]>([]);
+  usersTypingRef.current = usersTyping;
+
+  useUsersTypingEvents({ setUsers: setUsersTyping, usersRef: usersTypingRef });
 
   function handleClick() {
     socket.emit('user:log_out');
@@ -45,7 +52,7 @@ export default function ChatRoom() {
               setMessage={setError}
             />
             <MessageList messages={messages} />
-            <MessageInput />
+            <MessageInput usersTypingComponent={<UsersTyping users={usersTyping} />} />
           </main>
           <aside className={`${styles.sidebar} has-overflow-y-scroll has-thin-scrollbar p-5 pr-0`}>
             <UserList names={users} />

@@ -38,6 +38,8 @@ export default class ChatEventHandler {
     this.socket.on('user:log_out', this.handleLogOut);
     this.socket.on('message:send', this.handleSendMessage);
     this.socket.on('message:get_list', this.handleMessageList);
+    this.socket.on('user:send_start_typing', this.handleStartTyping);
+    this.socket.on('user:send_stop_typing', this.handleStopTyping);
   };
 
   private handleSetName = (name: string) => {
@@ -108,5 +110,21 @@ export default class ChatEventHandler {
 
   private handleMessageList = () => {
     this.socket.emit('message:list', this.store.messages);
+  };
+
+  private handleStartTyping = () => {
+    if (!this.socket.data.user) {
+      return;
+    }
+
+    this.io.emit('user:start_typing', this.socket.data.user.name);
+  };
+
+  private handleStopTyping = () => {
+    if (!this.socket.data.user) {
+      return;
+    }
+
+    this.socket.broadcast.emit('user:stop_typing', this.socket.data.user.name);
   };
 }
