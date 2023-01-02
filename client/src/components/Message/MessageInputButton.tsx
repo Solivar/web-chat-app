@@ -14,7 +14,7 @@ export default function MessageInputButton({ children, classes = '', ...attribut
       className={`${styles.inputButton} button is-rounded ${classes}`}
       {...attributes}
     >
-      <span className="icon is-small">{children}</span>
+      <span className="icon is-size-5">{children}</span>
     </button>
   );
 }

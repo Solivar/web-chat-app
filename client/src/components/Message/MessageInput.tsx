@@ -1,5 +1,5 @@
-import { FaPaperPlane, FaRegSmile } from 'react-icons/fa';
 import React, { useContext, useState } from 'react';
+import { FiSend, FiSmile } from 'react-icons/fi';
 
 import EmojiPicker from '../EmojiPicker';
 import styles from './MessageInput.module.scss';
@@ -77,7 +77,7 @@ export default function MessageInput({
                   setIsEmojiPickerOpen(isOpen => !isOpen);
                 }}
               >
-                <FaRegSmile />
+                <FiSmile />
               </MessageInputButton>
             </div>
             <div className="control is-expanded">
@@ -106,7 +106,7 @@ export default function MessageInput({
                 disabled={!isValidMessageLength()}
                 classes="is-primary"
               >
-                <FaPaperPlane />
+                <FiSend />
               </MessageInputButton>
             </div>
           </div>

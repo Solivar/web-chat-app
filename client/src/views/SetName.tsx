@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import { FaArrowRight } from 'react-icons/fa';
+import { FiArrowRight } from 'react-icons/fi';
 
 import styles from './SetName.module.scss';
 import { NAME_MAX_LENGTH, NAME_MIN_LENGTH } from '../../../server/src/constants';
@@ -76,8 +76,8 @@ export default function SetName() {
                 disabled={isLoading}
               >
                 <span className="is-uppercase has-text-weight-bold ">Start chatting</span>
-                <span className="icon is-small">
-                  <FaArrowRight />
+                <span className="icon is-size-5">
+                  <FiArrowRight />
                 </span>
               </button>
             </div>

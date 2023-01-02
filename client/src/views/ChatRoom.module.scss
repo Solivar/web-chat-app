@@ -7,12 +7,9 @@ $sidebar-width: 250px;
 
 .room__header {
   padding: map.get(spacing.$spacing-values, '2');
-  padding-bottom: 0;
 
   @include mixins.tablet {
-    padding-top: map.get(spacing.$spacing-values, '3');
-    padding-left: map.get(spacing.$spacing-values, '5');
-    padding-right: map.get(spacing.$spacing-values, '2');
+    padding: map.get(spacing.$spacing-values, '3') map.get(spacing.$spacing-values, '5');
   }
 }
 

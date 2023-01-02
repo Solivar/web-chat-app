@@ -12,6 +12,7 @@ import { useErrorEvents } from '../hooks/events/useErrorEvents';
 import { useMessageEvents } from '../hooks/events/useMessageEvents';
 import { useUserEvents } from '../hooks/events/useUserEvents';
 import { userTypingEntry, useUsersTypingEvents } from '../hooks/events/useUsersTypingEvents';
+import Menu from '../components/Menu';
 
 export default function ChatRoom() {
   const name = useContext(NameContext);
@@ -36,13 +37,11 @@ export default function ChatRoom() {
         className={`${styles.room__header} is-flex is-justify-content-space-between is-align-content-center`}
       >
         <h1 className="is-size-5 has-text-weight-bold mb">Web Chat App</h1>
-        <button
-          onClick={handleClick}
-          type="button"
-          className="button is-ghost"
-        >
-          Leave chat
-        </button>
+        <nav>
+          <Menu leaveChat={handleClick}>
+            <UserList names={users} />
+          </Menu>
+        </nav>
       </div>
       <div className={`${styles.chat} has-overflow-hidden is-flex-grow-1`}>
         <div
