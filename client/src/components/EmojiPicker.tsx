@@ -1,10 +1,7 @@
 import Picker, { EmojiClickData, EmojiStyle } from 'emoji-picker-react';
+import React from 'react';
 
-export default function EmojiPicker({
-  setMessage,
-}: {
-  setMessage: React.Dispatch<React.SetStateAction<string>>;
-}) {
+function EmojiPicker({ setMessage }: { setMessage: React.Dispatch<React.SetStateAction<string>> }) {
   function handleClick(emojiData: EmojiClickData) {
     setMessage(prevMessage => {
       return `${prevMessage} ${emojiData.emoji}`;
@@ -22,3 +19,5 @@ export default function EmojiPicker({
     />
   );
 }
+
+export default React.memo(EmojiPicker);
