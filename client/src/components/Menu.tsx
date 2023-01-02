@@ -40,6 +40,15 @@ export default function Menu({
           </button>
           {children}
         </div>
+        {isOpen && (
+          <div
+            className={`${styles.backdrop}`}
+            onClick={() => {
+              setIsOpen(false);
+            }}
+            aria-hidden="true"
+          ></div>
+        )}
       </div>
       <div className="is-hidden-mobile">
         <button
