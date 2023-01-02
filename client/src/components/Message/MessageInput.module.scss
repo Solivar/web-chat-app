@@ -34,6 +34,16 @@
   }
 }
 
+.emojiPicker {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 200ms ease-out;
+
+  &.isOpen {
+    max-height: 350px;
+  }
+}
+
 .container {
   padding: map.get(spacing.$spacing-values, '5') map.get(spacing.$spacing-values, '2')
     map.get(spacing.$spacing-values, '2');

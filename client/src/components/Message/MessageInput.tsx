@@ -66,11 +66,9 @@ export default function MessageInput({
           onSubmit={handleSubmit}
           className="mb-3"
         >
-          {isEmojiPickerOpen && (
-            <div className="mb-3">
-              <EmojiPicker setMessage={setMessage} />
-            </div>
-          )}
+          <div className={`${styles.emojiPicker} ${isEmojiPickerOpen ? styles.isOpen : ''} mb-3`}>
+            <EmojiPicker setMessage={setMessage} />
+          </div>
           <div className="field is-grouped is-align-items-center">
             <div className="control">
               <MessageInputButton
