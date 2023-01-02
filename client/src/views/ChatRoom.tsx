@@ -34,7 +34,7 @@ export default function ChatRoom() {
   return (
     <div className="container is-fullhd is-flex is-flex-direction-column is-full-height">
       <div
-        className={`${styles.room__header} is-flex is-justify-content-space-between is-align-content-center`}
+        className={`${styles.room__header} is-flex is-justify-content-space-between is-align-items-center`}
       >
         <h1 className="is-size-5 has-text-weight-bold mb">Web Chat App</h1>
         <nav>
