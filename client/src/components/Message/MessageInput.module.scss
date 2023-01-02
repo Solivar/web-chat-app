@@ -49,8 +49,7 @@
     map.get(spacing.$spacing-values, '2');
 
   @include mixins.tablet {
-    padding: map.get(spacing.$spacing-values, '6') map.get(spacing.$spacing-values, '4')
-      map.get(spacing.$spacing-values, '2');
+    padding: 2.25rem map.get(spacing.$spacing-values, '4') map.get(spacing.$spacing-values, '2');
   }
 }
 

@@ -56,7 +56,9 @@ export default function ChatRoom() {
             <MessageList messages={messages} />
             <MessageInput usersTypingComponent={<UsersTyping users={usersTyping} />} />
           </main>
-          <aside className={`${styles.sidebar} has-overflow-y-scroll has-thin-scrollbar p-5 pr-0`}>
+          <aside
+            className={`${styles.sidebar} has-background-info-light has-overflow-y-scroll has-thin-scrollbar p-5 pr-0`}
+          >
             <UserList names={users} />
           </aside>
         </div>

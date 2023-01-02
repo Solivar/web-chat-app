@@ -3,8 +3,9 @@
 
 // Bulma custom theme variables
 // Need to come before importing Bulma
-// $body-background-color: #1a1a26;
-$primary: #2173a6;
+$body-background-color: #eaf0f5;
+$primary: #0367a6;
+$primary-light: hsl(203, 100%, 90%);
 
 @import 'bulma/bulma.sass';
 
