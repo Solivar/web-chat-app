@@ -37,10 +37,11 @@
 .emojiPicker {
   max-height: 0;
   overflow: hidden;
+  overflow-y: auto;
   transition: max-height 200ms ease-out;
 
   &.isOpen {
-    max-height: 350px;
+    max-height: min(350px, 40vh);
   }
 }
 
