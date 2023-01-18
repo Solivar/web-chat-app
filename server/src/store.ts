@@ -3,7 +3,7 @@ import { MESSAGES_LIMIT } from './constants';
 
 import { Message } from './types/Message';
 import { User } from './types/User';
-import messages from './tests/messages';
+import messages from './tests/data/messages';
 
 export default class Store {
   public users: User[] = [];
