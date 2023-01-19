@@ -13,7 +13,7 @@ function EmojiPicker({ setMessage }: { setMessage: React.Dispatch<React.SetState
       onEmojiClick={handleClick}
       lazyLoadEmojis={true}
       width="100%"
-      height="100%"
+      height="min(350px, 40vh)"
       emojiStyle={EmojiStyle.NATIVE}
       previewConfig={{ showPreview: false }}
     />
