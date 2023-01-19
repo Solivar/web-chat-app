@@ -2,8 +2,31 @@ import { MessageRepository } from './data/message/MessageRepository';
 import { User } from './types/User';
 import { UserRepository } from './data/user/UserRepository';
 import { Message } from './types/Message';
+import { UserMemoryRepository } from './data/user/UserMemoryRepository';
+import { MessageMemoryRepository } from './data/message/MessageMemoryRepository';
+import { MessageRedisRepository } from './data/message/MessageRedisRepository';
 
-export default class Store {
+let store: Store;
+
+export default async function getStore() {
+  if (store) {
+    return store;
+  } else {
+    await initStore();
+
+    return store;
+  }
+}
+
+export async function initStore(): Promise<void> {
+  if (process.env.REDIS_URL) {
+    store = new Store(new UserMemoryRepository(), new MessageRedisRepository());
+  } else {
+    store = new Store(new UserMemoryRepository(), new MessageMemoryRepository());
+  }
+}
+
+export class Store {
   private userRepository: UserRepository;
   private messageRepository: MessageRepository;
 
@@ -38,13 +61,19 @@ export default class Store {
     return this.userRepository.getNames();
   }
 
-  public addMessage({ content, userName }: { content: string; userName: string }): Message {
-    const addedMessage = this.messageRepository.add({ content, userName });
+  public async addMessage({
+    content,
+    userName,
+  }: {
+    content: string;
+    userName: string;
+  }): Promise<Message> {
+    const addedMessage = await this.messageRepository.add({ content, userName });
 
     return addedMessage;
   }
 
-  public getMessages(): Message[] {
-    return this.messageRepository.getMessages();
+  public async getMessages(): Promise<Message[]> {
+    return await this.messageRepository.getMessages();
   }
 }

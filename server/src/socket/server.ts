@@ -5,7 +5,7 @@ import type { Server as httpServer } from 'http';
 import ChatEventHandler from './ChatEventHandler';
 import { ClientToServerEvents, ServerToClientEvents } from './../types/Events';
 import { SocketData } from '../types/Socket';
-import { store } from './../app';
+import getStore from '../store';
 
 export function createSocketServer(httpServer: httpServer) {
   if (!process.env.CLIENT_URL) {
@@ -22,7 +22,8 @@ export function createSocketServer(httpServer: httpServer) {
     },
   );
 
-  io.on('connection', socket => {
+  io.on('connection', async socket => {
+    const store = await getStore();
     const eventHandler = new ChatEventHandler(io, socket, store);
 
     socket.on('disconnect', () => {

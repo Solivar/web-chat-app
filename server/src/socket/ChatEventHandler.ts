@@ -4,7 +4,7 @@ import {
   NAME_MAX_LENGTH,
   NAME_MIN_LENGTH,
 } from '../constants';
-import Store from '../store';
+import type { Store } from '../store';
 import { ChatSocket, ChatSocketsServer } from '../types/Socket';
 import { isUserSpamming } from './helper';
 export default class ChatEventHandler {
@@ -84,7 +84,7 @@ export default class ChatEventHandler {
     this.disconnectUser();
   };
 
-  private handleSendMessage = (content: string) => {
+  private handleSendMessage = async (content: string) => {
     if (!this.socket.data.user) {
       return;
     }
@@ -104,12 +104,12 @@ export default class ChatEventHandler {
       return;
     }
 
-    const message = this.store.addMessage({ content, userName: this.socket.data.user.name });
+    const message = await this.store.addMessage({ content, userName: this.socket.data.user.name });
     this.io.emit('message:receive', message);
   };
 
-  private handleMessageList = () => {
-    this.socket.emit('message:list', this.store.getMessages());
+  private handleMessageList = async () => {
+    this.socket.emit('message:list', await this.store.getMessages());
   };
 
   private handleStartTyping = () => {
