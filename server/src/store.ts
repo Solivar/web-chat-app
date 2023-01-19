@@ -1,18 +1,21 @@
-import { randomBytes } from 'crypto';
-import { MESSAGES_LIMIT } from './constants';
-
-import { Message } from './types/Message';
+import { MessageRepository } from './data/message/MessageRepository';
 import { User } from './types/User';
-import messages from './tests/data/messages';
+import { UserRepository } from './data/user/UserRepository';
+import { Message } from './types/Message';
 
 export default class Store {
-  public users: User[] = [];
-  public messages: Message[] = messages;
+  private userRepository: UserRepository;
+  private messageRepository: MessageRepository;
 
-  public nameExists(name: string) {
-    const exists = this.users.find(user => user.name === name);
+  constructor(userRepository: UserRepository, messageRepository: MessageRepository) {
+    this.userRepository = userRepository;
+    this.messageRepository = messageRepository;
+  }
 
-    if (exists) {
+  public userExists(name: string) {
+    const user = this.userRepository.findByName(name);
+
+    if (user) {
       return true;
     }
 
@@ -20,43 +23,28 @@ export default class Store {
   }
 
   public addUser({ id, name }: { id: string; name: string }): User {
-    const user = {
-      id,
-      name,
-      hasJoinedRoom: true,
-    };
+    const addedUser = this.userRepository.add({ id, name });
 
-    this.users.push(user);
-
-    return user;
+    return addedUser;
   }
 
   public removeUser(id: string) {
-    const userIndex = this.users.findIndex(user => user.id === id);
-    const name = this.users[userIndex].name;
+    const removedName = this.userRepository.remove(id);
 
-    this.users.splice(userIndex, 1);
-
-    return name;
+    return removedName;
   }
 
-  public addMessage(content: string, userName: string) {
-    const id = randomBytes(16).toString('hex');
-    const currentTimestamp: number = +new Date();
-    const message: Message = {
-      id,
-      name: userName,
-      content,
-      timestamp: currentTimestamp,
-    };
+  public getUserNames() {
+    return this.userRepository.getNames();
+  }
 
-    // If the store is full, remove oldest message
-    if (this.messages.length === MESSAGES_LIMIT) {
-      this.messages.shift();
-    }
+  public addMessage({ content, userName }: { content: string; userName: string }): Message {
+    const addedMessage = this.messageRepository.add({ content, userName });
 
-    this.messages.push(message);
+    return addedMessage;
+  }
 
-    return message;
+  public getMessages(): Message[] {
+    return this.messageRepository.getMessages();
   }
 }

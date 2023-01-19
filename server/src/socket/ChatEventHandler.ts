@@ -58,7 +58,7 @@ export default class ChatEventHandler {
       return;
     }
 
-    if (this.store.nameExists(name)) {
+    if (this.store.userExists(name)) {
       this.socket.emit('error', 'Name is already taken.');
 
       return;
@@ -76,7 +76,7 @@ export default class ChatEventHandler {
   };
 
   private handleUserList = () => {
-    const names = this.store.users.map(user => user.name);
+    const names = this.store.getUserNames();
     this.socket.emit('user:list', names);
   };
 
@@ -104,12 +104,12 @@ export default class ChatEventHandler {
       return;
     }
 
-    const message = this.store.addMessage(content, this.socket.data.user.name);
+    const message = this.store.addMessage({ content, userName: this.socket.data.user.name });
     this.io.emit('message:receive', message);
   };
 
   private handleMessageList = () => {
-    this.socket.emit('message:list', this.store.messages);
+    this.socket.emit('message:list', this.store.getMessages());
   };
 
   private handleStartTyping = () => {
