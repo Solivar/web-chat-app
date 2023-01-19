@@ -16,19 +16,18 @@ export class UserMemoryRepository implements UserRepository {
     return user;
   }
 
-  public remove(id: string): string {
-    const userIndex = this.users.findIndex(user => user.id === id);
-    const name = this.users[userIndex].name;
+  public remove(name: string): string {
+    const userIndex = this.users.findIndex(user => user.name === name);
 
     this.users.splice(userIndex, 1);
 
     return name;
   }
 
-  public findByName(name: string): User | null {
+  public nameExists(name: string): boolean {
     const user = this.users.find(user => user.name === name);
 
-    return user || null;
+    return !!user;
   }
 
   public getNames(): string[] {

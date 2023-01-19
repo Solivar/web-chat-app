@@ -1,10 +1,10 @@
 import dotenv from 'dotenv';
+dotenv.config();
+
 import http from 'http';
 
 import { createSocketServer } from './socket/server';
 import { initStore } from './store';
-
-dotenv.config();
 
 const port = process.env.PORT || 3000;
 const url = process.env.APP_URL || 'localhost';
@@ -18,6 +18,6 @@ initStore()
       console.log(`App running on ${url}`);
     });
   })
-  .catch(function () {
-    throw new Error('Failed to initialize data store');
+  .catch(function (reason) {
+    throw new Error(reason);
   });

@@ -5,6 +5,8 @@ import { Message } from './types/Message';
 import { UserMemoryRepository } from './data/user/UserMemoryRepository';
 import { MessageMemoryRepository } from './data/message/MessageMemoryRepository';
 import { MessageRedisRepository } from './data/message/MessageRedisRepository';
+import { client } from './redis';
+import { UserRedisRepository } from './data/user/UserRedisRepository';
 
 let store: Store;
 
@@ -20,7 +22,8 @@ export default async function getStore() {
 
 export async function initStore(): Promise<void> {
   if (process.env.REDIS_URL) {
-    store = new Store(new UserMemoryRepository(), new MessageRedisRepository());
+    await client.connect();
+    store = new Store(new UserRedisRepository(), new MessageRedisRepository());
   } else {
     store = new Store(new UserMemoryRepository(), new MessageMemoryRepository());
   }
@@ -35,8 +38,8 @@ export class Store {
     this.messageRepository = messageRepository;
   }
 
-  public userExists(name: string) {
-    const user = this.userRepository.findByName(name);
+  public async userExists(name: string) {
+    const user = await this.userRepository.nameExists(name);
 
     if (user) {
       return true;
@@ -45,20 +48,20 @@ export class Store {
     return false;
   }
 
-  public addUser({ id, name }: { id: string; name: string }): User {
-    const addedUser = this.userRepository.add({ id, name });
+  public async addUser({ id, name }: { id: string; name: string }): Promise<User> {
+    const addedUser = await this.userRepository.add({ id, name });
 
     return addedUser;
   }
 
-  public removeUser(id: string) {
-    const removedName = this.userRepository.remove(id);
+  public async removeUser(name: string) {
+    const removedName = await this.userRepository.remove(name);
 
     return removedName;
   }
 
-  public getUserNames() {
-    return this.userRepository.getNames();
+  public async getUserNames() {
+    return await this.userRepository.getNames();
   }
 
   public async addMessage({

@@ -27,7 +27,7 @@ export default class ChatEventHandler {
       return;
     }
 
-    this.store.removeUser(this.socket.data.user.id);
+    this.store.removeUser(this.socket.data.user.name);
     this.io.emit('user:leave', this.socket.data.user.name);
     delete this.socket.data.user;
   };
@@ -42,7 +42,7 @@ export default class ChatEventHandler {
     this.socket.on('user:send_stop_typing', this.handleStopTyping);
   };
 
-  private handleSetName = (name: string) => {
+  private handleSetName = async (name: string) => {
     if (this.socket.data.user?.name) {
       this.socket.emit('error', 'You have already joined the chat.');
 
@@ -58,13 +58,13 @@ export default class ChatEventHandler {
       return;
     }
 
-    if (this.store.userExists(name)) {
+    if (await this.store.userExists(name)) {
       this.socket.emit('error', 'Name is already taken.');
 
       return;
     }
 
-    const user = this.store.addUser({
+    const user = await this.store.addUser({
       id: this.socket.id,
       name,
     });
@@ -75,8 +75,8 @@ export default class ChatEventHandler {
     this.socket.broadcast.emit('user:join', name);
   };
 
-  private handleUserList = () => {
-    const names = this.store.getUserNames();
+  private handleUserList = async () => {
+    const names = await this.store.getUserNames();
     this.socket.emit('user:list', names);
   };
 
