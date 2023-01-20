@@ -53,4 +53,4 @@ The application also has:
 - Anti-spam mechanism that shows an error alert on the client
 - Interchangeable data store for messages and users
   - In-memory for simplicity sake
-  - Redis for data persistance between restarts
+  - Redis for data persistence between restarts
