@@ -45,9 +45,12 @@ User picks a name that is not already taken and is connected to the only chat ro
 - Send and receive messages, including emojis
 - See a list of currently connected users
 - See a list of users who are currently typing
+- Get announcements of users joining and leaving
 
 The application also has:
 
 - Responsive design with a mobile menu on smaller screens
 - Anti-spam mechanism that shows an error alert on the client
-- An in-memory data store for messages and users on the server for simplicity
+- Interchangeable data store for messages and users
+  - In-memory for simplicity sake
+  - Redis for data persistance between restarts
