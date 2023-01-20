@@ -36,7 +36,7 @@ export default function MessageItem({ name, content, timestamp, isAnnouncement }
   }
 
   if (isAnnouncement) {
-    return <p className="has-text-grey">{content}</p>;
+    return <p className="has-text-grey px-4 py-2">{content}</p>;
   }
 
   return (
