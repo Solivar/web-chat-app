@@ -24,7 +24,7 @@ The following environment values are **required**:
 
 To persist data between restarts, you can use Redis instead of server process memory.
 
-1. Set `REDIS_URL` environment variable
+1. Set `REDIS_URL` environment variable in `server/.env`
 2. Visit `docker` directory in your terminal and start Redis server with `docker compose up` command
 
 ## Technologies
@@ -39,6 +39,8 @@ The application is built using the following tech stack:
 - Docker, Redis (data, optional)
 
 ## Features
+
+![Application feature preview in mobile version](https://i.imgur.com/kNF3ptM.png)
 
 User picks a name that is not already taken and is connected to the only chat room. From there they can:
 
